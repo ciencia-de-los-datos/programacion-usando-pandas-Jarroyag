@@ -22,9 +22,9 @@ def pregunta_01():
     40
 
     """
-    tab10 = pd.read_csv("/content/tbl0.tsv",sep="\t")
+    
 
-    col0 = tab10.shape[0]
+    col0 = tbl0.shape[0]
     return col0
 
 
@@ -36,8 +36,8 @@ def pregunta_02():
     4
 
     """
-    tab10 = pd.read_csv("/content/tbl0.tsv",sep="\t")
-    col1 = tab10.shape[1]
+    
+    col1 = tbl0.shape[1]
     return col1
 
 
@@ -55,8 +55,8 @@ def pregunta_03():
     Name: _c1, dtype: int64
 
     """
-    tab10 = pd.read_csv("/content/tbl0.tsv",sep="\t")
-    cant = tab10.groupby("_c1")["_c2"].count()
+    
+    cant = tbl0.groupby("_c1")["_c2"].count()
     return cant
 
 
@@ -72,8 +72,8 @@ def pregunta_04():
     E    4.785714
     Name: _c2, dtype: float64
     """
-    tab10 = pd.read_csv("/content/tbl0.tsv",sep="\t")
-    averag = tab10.groupby("_c1")["_c2"].mean()
+    
+    averag = tbl0.groupby("_c1")["_c2"].mean()
     return averag
 
 
@@ -91,8 +91,8 @@ def pregunta_05():
     E    9
     Name: _c2, dtype: int64
     """
-    tab10 = pd.read_csv("/content/tbl0.tsv",sep="\t")
-    max_1 = tab10.groupby("_c1")["_c2"].max()
+    
+    max_1 = tbl0.groupby("_c1")["_c2"].max()
     return max_1
 
 
@@ -105,8 +105,8 @@ def pregunta_06():
     ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 
     """
-    tab11 = pd.read_csv("/content/tbl1.tsv",sep="\t")
-    val_df = tab11["_c4"].unique()
+    
+    val_df = tbl1["_c4"].unique()
     val_df = sorted([letra.upper() for letra in val_df])
     
     return val_df
@@ -125,8 +125,8 @@ def pregunta_07():
     E    67
     Name: _c2, dtype: int64
     """
-    tab10 = pd.read_csv("/content/tbl0.tsv",sep="\t")
-    sum_1 = tab10.groupby("_c1")["_c2"].sum()
+   
+    sum_1 = tbl0.groupby("_c1")["_c2"].sum()
     
     return sum_1
 
@@ -146,12 +146,12 @@ def pregunta_08():
     39   39   E    5  1998-01-26    44
 
     """
-    tab10 = pd.read_csv("/content/tbl0.tsv",sep="\t")
-    tab10 = pd.DataFrame(tab10)
-    suma = pd.DataFrame(tab10["_c0"] + tab10["_c2"],columns=["suma"])
-    tab10 = tab10.join(suma)
     
-    return tab10
+    tb10 = pd.DataFrame(tb10)
+    suma = pd.DataFrame(tb10["_c0"] + tb10["_c2"],columns=["suma"])
+    tb10 = tb10.join(suma)
+    
+    return tb10
 
 
 def pregunta_09():
@@ -169,14 +169,14 @@ def pregunta_09():
     39   39   E    5  1998-01-26  1998
 
     """
-    tab10 = pd.read_csv("/content/tbl0.tsv",sep="\t")
-    tab10 = pd.DataFrame(tab10)
+    
+    tb10 = pd.DataFrame(tb10)
 
-    year = pd.DataFrame(tab10["_c3"].str.split("-",expand=True)[0])
+    year = pd.DataFrame(tb10["_c3"].str.split("-",expand=True)[0])
     year.columns=["year"]
-    tab10 = tab10.join(year)
+    tb10 = tb10.join(year)
 
-    return tab10
+    return tb10
 
 
 def pregunta_10():
@@ -193,9 +193,9 @@ def pregunta_10():
     3   D                  1:2:3:5:5:7
     4   E  1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
-    tab10 = pd.read_csv("/content/tbl0.tsv",sep="\t")
+    
 
-    new_tab = pd.DataFrame(tab10.groupby("_c1")["_c2"].apply(lambda col: ":".join(sorted([str(x) for x in col]))))
+    new_tab = pd.DataFrame(tbl0.groupby("_c1")["_c2"].apply(lambda col: ":".join(sorted([str(x) for x in col]))))
    
     return new_tab
 
@@ -216,8 +216,8 @@ def pregunta_11():
     38   38      d,e
     39   39    a,d,f
     """
-    tab11 = pd.read_csv("/content/tbl1.tsv",sep="\t")
-    new_tab2 = pd.DataFrame(tab11.groupby("_c0")["_c4"].apply(lambda col: ",".join(sorted([str(x) for x in col]))))
+    tbl1 = pd.read_csv("/content/tbl1.tsv",sep="\t")
+    new_tab2 = pd.DataFrame(tbl1.groupby("_c0")["_c4"].apply(lambda col: ",".join(sorted([str(x) for x in col]))))
 
     return new_tab2
 
@@ -237,9 +237,9 @@ def pregunta_12():
     38   38                    eee:0,fff:9,iii:2
     39   39                    ggg:3,hhh:8,jjj:5
     """
-    tab12 = pd.read_csv("/content/tbl2.tsv",sep="\t")
-    tab12["_c5"] = tab12["_c5a"].str.cat(tab12["_c5b"].astype(str), sep =":")
-    new_tab3 = pd.DataFrame(tab12.groupby("_c0")["_c5"].apply(lambda col: ",".join(sorted([str(x) for x in col]))))
+   
+    tbl2["_c5"] = tbl2["_c5a"].str.cat(tbl2["_c5b"].astype(str), sep =":")
+    new_tab3 = pd.DataFrame(tbl2.groupby("_c0")["_c5"].apply(lambda col: ",".join(sorted([str(x) for x in col]))))
 
 
     return  new_tab3
@@ -259,7 +259,7 @@ def pregunta_13():
     E    275
     Name: _c5b, dtype: int64
     """
-    new_tab4 = pd.merge(tab10,tab12, on="_c0")
+    new_tab4 = pd.merge(tbl0,tbl2, on="_c0")
     new_tab4 = new_tab4.groupby("_c1")["_c5b"].sum()
 
     return new_tab4
