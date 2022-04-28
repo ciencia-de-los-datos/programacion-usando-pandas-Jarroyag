@@ -22,7 +22,10 @@ def pregunta_01():
     40
 
     """
-    return
+    tab10 = pd.read_csv("/content/tbl0.tsv",sep="\t")
+
+    col0 = tab10.shape[0]
+    return col0
 
 
 def pregunta_02():
@@ -33,7 +36,9 @@ def pregunta_02():
     4
 
     """
-    return
+    tab10 = pd.read_csv("/content/tbl0.tsv",sep="\t")
+    col1 = tab10.shape[1]
+    return col1
 
 
 def pregunta_03():
@@ -50,7 +55,9 @@ def pregunta_03():
     Name: _c1, dtype: int64
 
     """
-    return
+    tab10 = pd.read_csv("/content/tbl0.tsv",sep="\t")
+    cant = tab10.groupby("_c1")["_c2"].count()
+    return cant
 
 
 def pregunta_04():
@@ -65,7 +72,9 @@ def pregunta_04():
     E    4.785714
     Name: _c2, dtype: float64
     """
-    return
+    tab10 = pd.read_csv("/content/tbl0.tsv",sep="\t")
+    averag = tab10.groupby("_c1")["_c2"].mean()
+    return averag
 
 
 def pregunta_05():
@@ -82,7 +91,9 @@ def pregunta_05():
     E    9
     Name: _c2, dtype: int64
     """
-    return
+    tab10 = pd.read_csv("/content/tbl0.tsv",sep="\t")
+    max_1 = tab10.groupby("_c1")["_c2"].max()
+    return max_1
 
 
 def pregunta_06():
@@ -94,7 +105,11 @@ def pregunta_06():
     ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 
     """
-    return
+    tab11 = pd.read_csv("/content/tbl1.tsv",sep="\t")
+    val_df = tab11["_c4"].unique()
+    val_df = sorted([letra.upper() for letra in val_df])
+    
+    return val_df
 
 
 def pregunta_07():
@@ -110,7 +125,10 @@ def pregunta_07():
     E    67
     Name: _c2, dtype: int64
     """
-    return
+    tab10 = pd.read_csv("/content/tbl0.tsv",sep="\t")
+    sum_1 = tab10.groupby("_c1")["_c2"].sum()
+    
+    return sum_1
 
 
 def pregunta_08():
@@ -128,7 +146,12 @@ def pregunta_08():
     39   39   E    5  1998-01-26    44
 
     """
-    return
+    tab10 = pd.read_csv("/content/tbl0.tsv",sep="\t")
+    tab10 = pd.DataFrame(tab10)
+    suma = pd.DataFrame(tab10["_c0"] + tab10["_c2"],columns=["suma"])
+    tab10 = tab10.join(suma)
+    
+    return tab10
 
 
 def pregunta_09():
@@ -146,7 +169,14 @@ def pregunta_09():
     39   39   E    5  1998-01-26  1998
 
     """
-    return
+    tab10 = pd.read_csv("/content/tbl0.tsv",sep="\t")
+    tab10 = pd.DataFrame(tab10)
+
+    year = pd.DataFrame(tab10["_c3"].str.split("-",expand=True)[0])
+    year.columns=["year"]
+    tab10 = tab10.join(year)
+
+    return tab10
 
 
 def pregunta_10():
@@ -163,7 +193,11 @@ def pregunta_10():
     3   D                  1:2:3:5:5:7
     4   E  1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
-    return
+    tab10 = pd.read_csv("/content/tbl0.tsv",sep="\t")
+
+    new_tab = pd.DataFrame(tab10.groupby("_c1")["_c2"].apply(lambda col: ":".join(sorted([str(x) for x in col]))))
+   
+    return new_tab
 
 
 def pregunta_11():
@@ -182,7 +216,10 @@ def pregunta_11():
     38   38      d,e
     39   39    a,d,f
     """
-    return
+    tab11 = pd.read_csv("/content/tbl1.tsv",sep="\t")
+    new_tab2 = pd.DataFrame(tab11.groupby("_c0")["_c4"].apply(lambda col: ",".join(sorted([str(x) for x in col]))))
+
+    return new_tab2
 
 
 def pregunta_12():
@@ -200,7 +237,12 @@ def pregunta_12():
     38   38                    eee:0,fff:9,iii:2
     39   39                    ggg:3,hhh:8,jjj:5
     """
-    return
+    tab12 = pd.read_csv("/content/tbl2.tsv",sep="\t")
+    tab12["_c5"] = tab12["_c5a"].str.cat(tab12["_c5b"].astype(str), sep =":")
+    new_tab3 = pd.DataFrame(tab12.groupby("_c0")["_c5"].apply(lambda col: ",".join(sorted([str(x) for x in col]))))
+
+
+    return  new_tab3
 
 
 def pregunta_13():
@@ -217,4 +259,7 @@ def pregunta_13():
     E    275
     Name: _c5b, dtype: int64
     """
-    return
+    new_tab4 = pd.merge(tab10,tab12, on="_c0")
+    new_tab4 = new_tab4.groupby("_c1")["_c5b"].sum()
+
+    return new_tab4
