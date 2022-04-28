@@ -147,7 +147,7 @@ def pregunta_08():
 
     """
     
-    tb10 = pd.DataFrame(tb10)
+    
     suma = pd.DataFrame(tb10["_c0"] + tb10["_c2"],columns=["suma"])
     tb10 = tb10.join(suma)
     
@@ -170,7 +170,7 @@ def pregunta_09():
 
     """
     
-    tb10 = pd.DataFrame(tb10)
+    
 
     year = pd.DataFrame(tb10["_c3"].str.split("-",expand=True)[0])
     year.columns=["year"]
@@ -216,7 +216,7 @@ def pregunta_11():
     38   38      d,e
     39   39    a,d,f
     """
-    tbl1 = pd.read_csv("/content/tbl1.tsv",sep="\t")
+    
     new_tab2 = pd.DataFrame(tbl1.groupby("_c0")["_c4"].apply(lambda col: ",".join(sorted([str(x) for x in col]))))
 
     return new_tab2
