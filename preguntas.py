@@ -148,10 +148,10 @@ def pregunta_08():
     """
     
     
-    suma = pd.DataFrame(tb10["_c0"] + tb10["_c2"],columns=["suma"])
-    tb10 = tb10.join(suma)
+    tbl0["suma"] = tbl0["_c0"] + tbl0["_c2"]
     
-    return tb10
+    
+    return tbl0
 
 
 def pregunta_09():
@@ -172,11 +172,11 @@ def pregunta_09():
     
     
 
-    year = pd.DataFrame(tb10["_c3"].str.split("-",expand=True)[0])
+    year = pd.DataFrame(tbl0["_c3"].str.split("-",expand=True)[0])
     year.columns=["year"]
-    tb10 = tb10.join(year)
+    tbl0 = tbl0.join(year)
 
-    return tb10
+    return tbl0
 
 
 def pregunta_10():
@@ -238,8 +238,9 @@ def pregunta_12():
     39   39                    ggg:3,hhh:8,jjj:5
     """
    
-    tbl2["_c5"] = tbl2["_c5a"].str.cat(tbl2["_c5b"].astype(str), sep =":")
-    new_tab3 = pd.DataFrame(tbl2.groupby("_c0")["_c5"].apply(lambda col: ",".join(sorted([str(x) for x in col]))))
+    new_tab3 = tbl2.sort_values("_c5")
+    new_tab3 = new_tab3["_c5"] + ":" + new_tab3["_c5"].map(str)
+    new_tab3 = new_tab3.groupby("_c0"), as_index=False).agg({"_c5":",".join})
 
 
     return  new_tab3
