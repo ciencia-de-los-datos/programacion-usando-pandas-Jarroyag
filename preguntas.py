@@ -73,8 +73,8 @@ def pregunta_04():
     Name: _c2, dtype: float64
     """
     
-    averag = tbl0.groupby("_c1")["_c2"].mean()
-    return averag
+    porcent = tbl0.groupby("_c1")["_c2"].mean()
+    return porcent
 
 
 def pregunta_05():
