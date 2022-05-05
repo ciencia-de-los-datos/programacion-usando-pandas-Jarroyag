@@ -73,8 +73,8 @@ def pregunta_04():
     Name: _c2, dtype: float64
     """
     
-    porcent = tbl0.groupby("_c1")["_c2"].mean()
-    return porcent
+    pocent = tbl0.groupby("_c1")["_c2"].mean()
+    return pocent
 
 
 def pregunta_05():
@@ -240,7 +240,7 @@ def pregunta_12():
    
     new_tab3 = tbl2.sort_values("_c5")
     new_tab3 = new_tab3["_c5"] + ":" + new_tab3["_c5"].map(str)
-    new_tab3 = new_tab3.groupby("_c0"), as_index=False).agg({"_c5":",".join})
+    new_tab3 = new_tab3.groupby(("_c0"), as_index=False).agg({"_c5":",".join})
 
 
     return  new_tab3
