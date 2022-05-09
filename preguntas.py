@@ -172,11 +172,13 @@ def pregunta_09():
     
     
 
-    year = pd.DataFrame(tbl0["_c3"].str.split("-",expand=True)[0])
-    year.columns=["year"]
-    tbl0 = tbl0.join(year)
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    tbl0['year']=[x.split('-')[0] for x in tbl0['_c3']]
+    rta=tbl0
+    
+    return rta
 
-    return tbl0
+    
 
 
 def pregunta_10():
@@ -217,9 +219,19 @@ def pregunta_11():
     39   39    a,d,f
     """
     
-    new_tab2 = pd.DataFrame(tbl1.groupby("_c0")["_c4"].apply(lambda col: ",".join(sorted([str(x) for x in col]))))
-
-    return new_tab2
+    tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
+    numeros=tbl1['_c0'].unique()
+    df = pd.DataFrame(numeros, columns = ['_c0'])
+    df['_c4']=''
+    valores=[]
+    for row in df.iterrows():
+        lista=sorted(tbl1[tbl1['_c0']==row[1][0]]['_c4'])
+        sentence=''
+        for word in lista:
+            sentence += str(word) + ","
+        valores.append(sentence[0:-1])
+    df['_c4']=valores
+    return df
 
 
 def pregunta_12():
@@ -238,12 +250,22 @@ def pregunta_12():
     39   39                    ggg:3,hhh:8,jjj:5
     """
    
-    new_tab3 = tbl2.sort_values("_c5")
-    new_tab3 = new_tab3["_c5"] + ":" + new_tab3["_c5"].map(str)
-    new_tab3 = new_tab3.groupby(("_c0"), as_index=False).agg({"_c5":",".join})
-
-
-    return  new_tab3
+    tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
+    tbl2['_c5']=''
+    tbl2['_c5b']=tbl2['_c5b'].astype(str)
+    tbl2['_c5'] = tbl2['_c5a'] + ':'+tbl2['_c5b']
+    numeros=tbl2['_c0'].unique()
+    df = pd.DataFrame(numeros, columns = ['_c0'])
+    df['_c5']=''
+    valores=[]
+    for row in df.iterrows():
+        lista=sorted(tbl2[tbl2['_c0']==row[1][0]]['_c5'])
+        sentence=''
+        for word in lista:
+            sentence += str(word) + ","
+        valores.append(sentence[0:-1])
+    df['_c5']=valores
+    return df
 
 
 def pregunta_13():
